@@ -196,10 +196,9 @@
             padding-top: 10px;
         }
 
-        /* Polaroid Frame Box */
         .polaroid-card {
             background: #ffffff;
-            padding: 10px 10px 25px 10px; /* Polaroid bottom thick margin */
+            padding: 10px 10px 25px 10px;
             border-radius: 4px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             position: relative;
@@ -211,7 +210,6 @@
             z-index: 5;
         }
 
-        /* Red Push Pin */
         .polaroid-card::before {
             content: '';
             position: absolute;
@@ -226,7 +224,6 @@
             z-index: 2;
         }
 
-        /* Image Display - Whole Image Full View */
         .polaroid-img-box {
             width: 100%;
             background: #f8f8f8;
@@ -240,11 +237,10 @@
             width: 100%;
             height: auto;
             display: block;
-            object-fit: contain; /* Prevents any cropping */
+            object-fit: contain;
             border-radius: 2px;
         }
 
-        /* Rotations for natural Pinboard Look */
         .pol-1 { transform: rotate(-3deg); }
         .pol-2 { transform: rotate(4deg); }
         .pol-3 { transform: rotate(2deg); }
@@ -287,7 +283,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
@@ -343,48 +339,41 @@
         <!-- Step 6: Polaroid Scrapbook Grid -->
         <div id="step6">
             <div class="polaroid-grid">
-                <!-- Photo 1 -->
                 <div class="polaroid-card pol-1">
                     <div class="polaroid-img-box">
                         <img src="pic1.jpg" alt="Memory 1">
                     </div>
                 </div>
 
-                <!-- Photo 2 -->
                 <div class="polaroid-card pol-2">
                     <div class="polaroid-img-box">
                         <img src="pic2.jpg" alt="Memory 2">
                     </div>
                 </div>
 
-                <!-- Center Title Block -->
                 <div class="middle-text-block">
                     <h1 class="main-title">I Love You! ❤️</h1>
                     <p class="sub-title">You are my whole world.</p>
                 </div>
 
-                <!-- Photo 3 -->
                 <div class="polaroid-card pol-3">
                     <div class="polaroid-img-box">
                         <img src="pic3.jpg" alt="Memory 3">
                     </div>
                 </div>
 
-                <!-- Photo 4 -->
                 <div class="polaroid-card pol-4">
                     <div class="polaroid-img-box">
                         <img src="pic4.jpeg" alt="Memory 4">
                     </div>
                 </div>
 
-                <!-- Photo 5 -->
                 <div class="polaroid-card pol-5">
                     <div class="polaroid-img-box">
                         <img src="pic5.jpeg" alt="Memory 5">
                     </div>
                 </div>
 
-                <!-- Photo 6 -->
                 <div class="polaroid-card pol-6">
                     <div class="polaroid-img-box">
                         <img src="pic6.jpeg" alt="Memory 6">
@@ -476,11 +465,21 @@ Ebar bolo "tumi ki bhaggoban now?" 😊🫶</p>
             document.getElementById('step3').style.display = 'block';
         }
 
-        function checkPasscode(e) {
+        /* --- Encrypted Check Passcode (Passcode: 191223) --- */
+        async function checkPasscode(e) {
             const input = document.getElementById('passcodeInput').value;
             const errorMsg = document.getElementById('errorMsg');
 
-            if (input === "191223") {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(input);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            // SHA-256 Hash for '191223'
+            const targetHash = "2d3e3ba4953c89498a4d46816fa8a7f0e9e1c3a649323719e712391219b10620";
+
+            if (hashHex === targetHash) {
                 errorMsg.style.display = "none";
                 document.getElementById('step3').style.display = 'none';
                 document.getElementById('loadingStep').style.display = 'block';
