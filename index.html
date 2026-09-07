@@ -191,46 +191,50 @@
             margin-bottom: 15px;
         }
 
-        /* --- Step 6: Asymmetric Photo Grid with Middle Text --- */
+        /* --- Step 6: Asymmetric Mosaic Photo Grid --- */
         .asymmetric-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 15px;
             align-items: center;
             margin-bottom: 15px;
         }
         .grid-item {
             position: relative;
             overflow: hidden;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            background: #fff;
+            padding: 5px;
         }
         .grid-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+            border-radius: 12px;
             transition: transform 0.3s ease;
         }
         .grid-item img:hover { transform: scale(1.05); }
 
-        /* Custom heights & rotations for mosaic look */
-        .item-1 { height: 130px; transform: rotate(-2deg); }
-        .item-2 { height: 160px; transform: rotate(2deg); }
-        .item-3 { height: 150px; transform: rotate(1deg); }
+        /* Custom heights & rotations for real mosaic feel */
+        .item-1 { height: 140px; transform: rotate(-4deg); }
+        .item-2 { height: 170px; transform: rotate(3deg); }
+        .item-3 { height: 150px; transform: rotate(2deg); }
         
         .middle-text-block {
             grid-column: span 2;
-            padding: 15px 10px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 15px;
-            backdrop-filter: blur(4px);
+            padding: 18px 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 18px;
+            backdrop-filter: blur(5px);
             margin: 5px 0;
+            border: 1px solid rgba(255,255,255,0.8);
         }
 
-        .item-4 { height: 160px; transform: rotate(-1.5deg); }
-        .item-5 { height: 135px; transform: rotate(2.5deg); }
-        .item-6 { height: 145px; grid-column: span 2; }
+        .item-4 { height: 165px; transform: rotate(-3deg); }
+        .item-5 { height: 140px; transform: rotate(4deg); }
+        .item-6 { height: 150px; grid-column: span 2; transform: rotate(-1deg); }
 
         /* --- Step 7: Final Letter --- */
         .letter-card {
