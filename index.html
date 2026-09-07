@@ -47,12 +47,8 @@
                 opacity: 0;
                 transform: translate(0, 0) scale(0.1) rotate(0deg);
             }
-            15% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 0.95;
-            }
+            15% { opacity: 1; }
+            70% { opacity: 0.95; }
             100% {
                 opacity: 0;
                 transform: translate(var(--tx), var(--ty)) scale(var(--final-scale)) rotate(var(--rot));
@@ -116,7 +112,7 @@
             color: #b57a70;
             cursor: pointer;
             letter-spacing: 5px;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         /* --- Step 3: Passkey Box --- */
@@ -191,53 +187,81 @@
             margin-bottom: 15px;
         }
 
-        /* --- Step 6: Full Image Mosaic Photo Grid --- */
-        .asymmetric-grid {
+        /* --- Step 6: Polaroid Scrapbook Style --- */
+        .polaroid-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            align-items: center;
+            gap: 20px 15px;
             margin-bottom: 15px;
+            padding-top: 10px;
         }
-        .grid-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+
+        /* Polaroid Frame Box */
+        .polaroid-card {
             background: #ffffff;
-            padding: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Prevents image cropping */
-            display: block;
-            border-radius: 10px;
+            padding: 10px 10px 25px 10px; /* Polaroid bottom thick margin */
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            position: relative;
             transition: transform 0.3s ease;
         }
-        .grid-item img:hover { transform: scale(1.04); }
 
-        /* Custom heights & subtle rotations */
-        .item-1 { height: 180px; transform: rotate(-3deg); }
-        .item-2 { height: 210px; transform: rotate(2deg); }
-        .item-3 { height: 190px; transform: rotate(2deg); }
-        
+        .polaroid-card:hover {
+            transform: scale(1.04) rotate(0deg) !important;
+            z-index: 5;
+        }
+
+        /* Red Push Pin */
+        .polaroid-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: #e63946;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3), inset -2px -2px 4px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+
+        /* Image Display - Whole Image Full View */
+        .polaroid-img-box {
+            width: 100%;
+            background: #f8f8f8;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .polaroid-img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain; /* Prevents any cropping */
+            border-radius: 2px;
+        }
+
+        /* Rotations for natural Pinboard Look */
+        .pol-1 { transform: rotate(-3deg); }
+        .pol-2 { transform: rotate(4deg); }
+        .pol-3 { transform: rotate(2deg); }
+        .pol-4 { transform: rotate(-4deg); }
+        .pol-5 { transform: rotate(3deg); }
+        .pol-6 { grid-column: span 2; transform: rotate(-1deg); width: 80%; justify-self: center; }
+
         .middle-text-block {
             grid-column: span 2;
-            padding: 18px 10px;
-            background: rgba(255, 255, 255, 0.65);
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 18px;
             backdrop-filter: blur(5px);
             margin: 5px 0;
             border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
-
-        .item-4 { height: 210px; transform: rotate(-2deg); }
-        .item-5 { height: 180px; transform: rotate(3deg); }
-        .item-6 { height: 220px; grid-column: span 2; transform: rotate(-1deg); }
 
         /* --- Step 7: Final Letter --- */
         .letter-card {
@@ -265,17 +289,20 @@
 </head>
 <body>
 
+    <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
+        <!-- Step 1: Gift Box -->
         <div id="step1">
             <div class="gift-box" onclick="trigger300FlowerBurst(event)">🎁</div>
             <h1 style="font-family: 'Caveat', cursive; font-size: 2.3rem; color: #8b3a3a; margin-bottom: 8px;">For you, my baby.</h1>
             <p style="font-size: 0.95rem; color: #a06e62; font-style: italic;">(Tap to open)</p>
         </div>
 
+        <!-- Step 2: Couple Card -->
         <div id="step2">
             <h1 class="main-title">From me to you.</h1>
             <p class="sub-title">This is how much I love you.</p>
@@ -283,6 +310,7 @@
             <div class="nav-dots" onclick="goToStep3()">✦ ♡ ✦</div>
         </div>
 
+        <!-- Step 3: Passkey Lock -->
         <div id="step3">
             <div class="passkey-box">
                 <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem; color: #8b2626;">Enter Passkey</h2>
@@ -294,12 +322,14 @@
             </div>
         </div>
 
+        <!-- Step 4: Flower Loading Screen -->
         <div id="loadingStep">
             <div class="flower-loader">🌸</div>
             <h2 style="font-family: 'Caveat', cursive; font-size: 2.2rem; color: #8b2626;">Unlocking memories...</h2>
             <p style="font-size: 0.9rem; color: #a06e62; font-style: italic;">Preparing something special for you ✨</p>
         </div>
 
+        <!-- Step 5: Video Screen -->
         <div id="step5">
             <div class="video-wrapper">
                 <video autoplay loop muted playsinline>
@@ -310,37 +340,62 @@
             <div class="nav-dots" onclick="goToStep6()">Next ✦ ♡ ✦</div>
         </div>
 
+        <!-- Step 6: Polaroid Scrapbook Grid -->
         <div id="step6">
-            <div class="asymmetric-grid">
-                <div class="grid-item item-1">
-                    <img src="pic1.jpg" alt="Memory 1">
-                </div>
-                <div class="grid-item item-2">
-                    <img src="pic2.jpg" alt="Memory 2">
+            <div class="polaroid-grid">
+                <!-- Photo 1 -->
+                <div class="polaroid-card pol-1">
+                    <div class="polaroid-img-box">
+                        <img src="pic1.jpg" alt="Memory 1">
+                    </div>
                 </div>
 
+                <!-- Photo 2 -->
+                <div class="polaroid-card pol-2">
+                    <div class="polaroid-img-box">
+                        <img src="pic2.jpg" alt="Memory 2">
+                    </div>
+                </div>
+
+                <!-- Center Title Block -->
                 <div class="middle-text-block">
                     <h1 class="main-title">I Love You! ❤️</h1>
                     <p class="sub-title">You are my whole world.</p>
                 </div>
 
-                <div class="grid-item item-3">
-                    <img src="pic3.jpg" alt="Memory 3">
+                <!-- Photo 3 -->
+                <div class="polaroid-card pol-3">
+                    <div class="polaroid-img-box">
+                        <img src="pic3.jpg" alt="Memory 3">
+                    </div>
                 </div>
-                <div class="grid-item item-4">
-                    <img src="pic4.jpeg" alt="Memory 4">
+
+                <!-- Photo 4 -->
+                <div class="polaroid-card pol-4">
+                    <div class="polaroid-img-box">
+                        <img src="pic4.jpeg" alt="Memory 4">
+                    </div>
                 </div>
-                <div class="grid-item item-5">
-                    <img src="pic5.jpeg" alt="Memory 5">
+
+                <!-- Photo 5 -->
+                <div class="polaroid-card pol-5">
+                    <div class="polaroid-img-box">
+                        <img src="pic5.jpeg" alt="Memory 5">
+                    </div>
                 </div>
-                <div class="grid-item item-6">
-                    <img src="pic6.jpeg" alt="Memory 6">
+
+                <!-- Photo 6 -->
+                <div class="polaroid-card pol-6">
+                    <div class="polaroid-img-box">
+                        <img src="pic6.jpeg" alt="Memory 6">
+                    </div>
                 </div>
             </div>
 
             <div class="nav-dots" onclick="goToStep7()">Read my letter ✦ ♡ ✦</div>
         </div>
 
+        <!-- Step 7: Final Main Love Letter -->
         <div id="step7">
             <h1 class="main-title" style="font-size: 2.5rem; margin-bottom: 15px;">Letter For MOMO ❤️</h1>
             <div class="letter-card">
