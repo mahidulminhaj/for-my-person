@@ -196,9 +196,10 @@
             padding-top: 10px;
         }
 
+        /* Polaroid Frame Box */
         .polaroid-card {
             background: #ffffff;
-            padding: 10px 10px 25px 10px;
+            padding: 10px 10px 25px 10px; /* Polaroid bottom thick margin */
             border-radius: 4px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             position: relative;
@@ -210,6 +211,7 @@
             z-index: 5;
         }
 
+        /* Red Push Pin */
         .polaroid-card::before {
             content: '';
             position: absolute;
@@ -224,6 +226,7 @@
             z-index: 2;
         }
 
+        /* Image Display - Whole Image Full View */
         .polaroid-img-box {
             width: 100%;
             background: #f8f8f8;
@@ -237,10 +240,11 @@
             width: 100%;
             height: auto;
             display: block;
-            object-fit: contain;
+            object-fit: contain; /* Prevents any cropping */
             border-radius: 2px;
         }
 
+        /* Rotations for natural Pinboard Look */
         .pol-1 { transform: rotate(-3deg); }
         .pol-2 { transform: rotate(4deg); }
         .pol-3 { transform: rotate(2deg); }
@@ -283,7 +287,7 @@
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
@@ -339,41 +343,48 @@
         <!-- Step 6: Polaroid Scrapbook Grid -->
         <div id="step6">
             <div class="polaroid-grid">
+                <!-- Photo 1 -->
                 <div class="polaroid-card pol-1">
                     <div class="polaroid-img-box">
                         <img src="pic1.jpg" alt="Memory 1">
                     </div>
                 </div>
 
+                <!-- Photo 2 -->
                 <div class="polaroid-card pol-2">
                     <div class="polaroid-img-box">
                         <img src="pic2.jpg" alt="Memory 2">
                     </div>
                 </div>
 
+                <!-- Center Title Block -->
                 <div class="middle-text-block">
                     <h1 class="main-title">I Love You! ❤️</h1>
                     <p class="sub-title">You are my whole world.</p>
                 </div>
 
+                <!-- Photo 3 -->
                 <div class="polaroid-card pol-3">
                     <div class="polaroid-img-box">
                         <img src="pic3.jpg" alt="Memory 3">
                     </div>
                 </div>
 
+                <!-- Photo 4 -->
                 <div class="polaroid-card pol-4">
                     <div class="polaroid-img-box">
                         <img src="pic4.jpeg" alt="Memory 4">
                     </div>
                 </div>
 
+                <!-- Photo 5 -->
                 <div class="polaroid-card pol-5">
                     <div class="polaroid-img-box">
                         <img src="pic5.jpeg" alt="Memory 5">
                     </div>
                 </div>
 
+                <!-- Photo 6 -->
                 <div class="polaroid-card pol-6">
                     <div class="polaroid-img-box">
                         <img src="pic6.jpeg" alt="Memory 6">
@@ -465,9 +476,8 @@ Ebar bolo "tumi ki bhaggoban now?" 😊🫶</p>
             document.getElementById('step3').style.display = 'block';
         }
 
-        /* --- Direct Passcode Verification --- */
         function checkPasscode(e) {
-            const input = document.getElementById('passcodeInput').value.trim();
+            const input = document.getElementById('passcodeInput').value;
             const errorMsg = document.getElementById('errorMsg');
 
             if (input === "191223") {
