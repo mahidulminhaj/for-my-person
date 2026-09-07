@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Person ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #fceade;
+            font-family: 'Poppins', sans-serif;
+            color: #5a3e36;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            width: 100%;
+            max-width: 430px;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+        }
 
+        /* Flower Burst Particles */
+        .flower-particle {
+            position: absolute;
+            font-size: 24px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 10;
+            animation: burst 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.5) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(var(--rot));
+            }
+        }
+
+        /* Step 1 Styles */
+        .gift-box {
+            font-size: 80px;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            margin-bottom: 20px;
+            user-select: none;
+            transition: transform 0.3s ease;
+        }
+        .gift-box:active {
+            transform: scale(0.9);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80
