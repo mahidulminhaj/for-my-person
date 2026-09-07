@@ -191,7 +191,7 @@
             margin-bottom: 15px;
         }
 
-        /* --- Step 6: Asymmetric Mosaic Photo Grid --- */
+        /* --- Step 6: Full Image Mosaic Photo Grid --- */
         .asymmetric-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -204,37 +204,40 @@
             overflow: hidden;
             border-radius: 16px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-            background: #fff;
-            padding: 5px;
+            background: #ffffff;
+            padding: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .grid-item img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Prevents image cropping */
             display: block;
-            border-radius: 12px;
+            border-radius: 10px;
             transition: transform 0.3s ease;
         }
-        .grid-item img:hover { transform: scale(1.05); }
+        .grid-item img:hover { transform: scale(1.04); }
 
-        /* Custom heights & rotations for real mosaic feel */
-        .item-1 { height: 140px; transform: rotate(-4deg); }
-        .item-2 { height: 170px; transform: rotate(3deg); }
-        .item-3 { height: 150px; transform: rotate(2deg); }
+        /* Custom heights & subtle rotations */
+        .item-1 { height: 180px; transform: rotate(-3deg); }
+        .item-2 { height: 210px; transform: rotate(2deg); }
+        .item-3 { height: 190px; transform: rotate(2deg); }
         
         .middle-text-block {
             grid-column: span 2;
             padding: 18px 10px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.65);
             border-radius: 18px;
             backdrop-filter: blur(5px);
             margin: 5px 0;
             border: 1px solid rgba(255,255,255,0.8);
         }
 
-        .item-4 { height: 165px; transform: rotate(-3deg); }
-        .item-5 { height: 140px; transform: rotate(4deg); }
-        .item-6 { height: 150px; grid-column: span 2; transform: rotate(-1deg); }
+        .item-4 { height: 210px; transform: rotate(-2deg); }
+        .item-5 { height: 180px; transform: rotate(3deg); }
+        .item-6 { height: 220px; grid-column: span 2; transform: rotate(-1deg); }
 
         /* --- Step 7: Final Letter --- */
         .letter-card {
@@ -262,20 +265,17 @@
 </head>
 <body>
 
-    <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
-        <!-- Step 1: Gift Box -->
         <div id="step1">
             <div class="gift-box" onclick="trigger300FlowerBurst(event)">🎁</div>
             <h1 style="font-family: 'Caveat', cursive; font-size: 2.3rem; color: #8b3a3a; margin-bottom: 8px;">For you, my baby.</h1>
             <p style="font-size: 0.95rem; color: #a06e62; font-style: italic;">(Tap to open)</p>
         </div>
 
-        <!-- Step 2: Couple Card -->
         <div id="step2">
             <h1 class="main-title">From me to you.</h1>
             <p class="sub-title">This is how much I love you.</p>
@@ -283,7 +283,6 @@
             <div class="nav-dots" onclick="goToStep3()">✦ ♡ ✦</div>
         </div>
 
-        <!-- Step 3: Passkey Lock -->
         <div id="step3">
             <div class="passkey-box">
                 <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem; color: #8b2626;">Enter Passkey</h2>
@@ -295,14 +294,12 @@
             </div>
         </div>
 
-        <!-- Step 4: Flower Loading Screen -->
         <div id="loadingStep">
             <div class="flower-loader">🌸</div>
             <h2 style="font-family: 'Caveat', cursive; font-size: 2.2rem; color: #8b2626;">Unlocking memories...</h2>
             <p style="font-size: 0.9rem; color: #a06e62; font-style: italic;">Preparing something special for you ✨</p>
         </div>
 
-        <!-- Step 5: Video Screen -->
         <div id="step5">
             <div class="video-wrapper">
                 <video autoplay loop muted playsinline>
@@ -313,10 +310,8 @@
             <div class="nav-dots" onclick="goToStep6()">Next ✦ ♡ ✦</div>
         </div>
 
-        <!-- Step 6: Mosaic Photo Grid with Center Title -->
         <div id="step6">
             <div class="asymmetric-grid">
-                <!-- Top Photos -->
                 <div class="grid-item item-1">
                     <img src="pic1.jpg" alt="Memory 1">
                 </div>
@@ -324,13 +319,11 @@
                     <img src="pic2.jpg" alt="Memory 2">
                 </div>
 
-                <!-- Center Text Block -->
                 <div class="middle-text-block">
                     <h1 class="main-title">I Love You! ❤️</h1>
                     <p class="sub-title">You are my whole world.</p>
                 </div>
 
-                <!-- Middle/Bottom Photos (.jpeg Extension Fixed) -->
                 <div class="grid-item item-3">
                     <img src="pic3.jpg" alt="Memory 3">
                 </div>
@@ -348,7 +341,6 @@
             <div class="nav-dots" onclick="goToStep7()">Read my letter ✦ ♡ ✦</div>
         </div>
 
-        <!-- Step 7: Final Main Love Letter -->
         <div id="step7">
             <h1 class="main-title" style="font-size: 2.5rem; margin-bottom: 15px;">Letter For MOMO ❤️</h1>
             <div class="letter-card">
