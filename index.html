@@ -30,14 +30,13 @@
             z-index: 2;
         }
 
-        /* --- Updated Flowers Burst Particles --- */
+        /* --- Ultimate Flower Burst Particles --- */
         .flower-particle {
             position: absolute;
             user-select: none;
             pointer-events: none;
             z-index: 10;
-            opacity: 0; /* Starts invisible */
-            /* Randomize font size slightly for variety */
+            opacity: 0;
             font-size: calc(20px + (10 * var(--rand-size))); 
             animation: ultimateBurst 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
@@ -48,32 +47,30 @@
                 transform: translate(0, 0) scale(0.3) rotate(0deg);
             }
             15% {
-                opacity: 1; /* Quick fade in */
+                opacity: 1;
             }
             60% {
-                opacity: 1; /* Main burst phase */
+                opacity: 1;
             }
             100% {
-                opacity: 0; /* Slow fade out */
+                opacity: 0;
                 transform: translate(var(--tx), var(--ty)) scale(var(--final-scale)) rotate(var(--rot));
             }
         }
 
-        /* --- Updated Gif Box styles for a slightly bigger box --- */
+        /* --- Step 1 Styles --- */
         .gift-box {
-            font-size: 100px; /* Slightly bigger box to match the intense burst */
+            font-size: 100px;
             cursor: pointer;
             animation: bounce 2s infinite;
             margin-bottom: 25px;
             user-select: none;
             transition: transform 0.2s ease;
-            display: inline-block; /* Required for transform */
+            display: inline-block;
         }
         .gift-box:active {
-            transform: scale(0.85); /* Slightly more aggressive shrink on click */
+            transform: scale(0.85);
         }
-
-        /* Step 1 text styling remains the same */
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -81,10 +78,10 @@
             60% { transform: translateY(-12px); }
         }
 
-        /* --- Step 2 styles (unmodified) --- */
-        #step2 {
+        /* --- Step 2 Styles --- */
+        #step2, #step3, #loadingStep, #finalStep {
             display: none;
-            animation: fadeIn 1.2s ease forwards;
+            animation: fadeIn 1s ease forwards;
         }
         .main-title {
             font-family: 'Caveat', cursive;
@@ -120,6 +117,60 @@
             letter-spacing: 5px;
         }
 
+        /* --- Step 3: Passkey Styles --- */
+        .passkey-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 25px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+        .passkey-input {
+            width: 80%;
+            padding: 12px 15px;
+            font-size: 1.2rem;
+            border: 2px solid #e0a99e;
+            border-radius: 25px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 4px;
+            color: #5a3e36;
+            background: #fff;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        .passkey-btn {
+            background-color: #8b2626;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .passkey-btn:hover {
+            background-color: #6b1e1e;
+        }
+        .error-msg {
+            color: #d9534f;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* --- Flower Loading Animation Styles --- */
+        .flower-loader {
+            font-size: 60px;
+            display: inline-block;
+            animation: spin 2s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
@@ -128,91 +179,129 @@
 </head>
 <body>
 
-    <!-- Background Music (0:00 start) -->
+    <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
-        <!-- Step 1: Gift Box (updated burst trigger) -->
+        <!-- Step 1: Gift Box -->
         <div id="step1">
             <div class="gift-box" onclick="triggerUltimateFlowerBurst(event)">🎁</div>
             <h1 style="font-family: 'Caveat', cursive; font-size: 2.3rem; color: #8b3a3a; margin-bottom: 8px;">For you, my baby.</h1>
             <p style="font-size: 0.95rem; color: #a06e62; font-style: italic;">(Tap to open)</p>
         </div>
 
-        <!-- Step 2: Couple Card (unmodified) -->
+        <!-- Step 2: Couple Card -->
         <div id="step2">
             <h1 class="main-title">From me to you.</h1>
             <p class="sub-title">This is how much I love you.</p>
             <img src="couple.png" alt="Couple Illustration" class="couple-img" onclick="goToStep3()">
             <div class="nav-dots" onclick="goToStep3()">✦ ♡ ✦</div>
         </div>
+
+        <!-- Step 3: Passkey Lock -->
+        <div id="step3">
+            <div class="passkey-box">
+                <h2 style="font-family: 'Caveat', cursive; font-size: 2.5rem; color: #8b2626;">Enter Passkey</h2>
+                <p style="font-size: 0.9rem; color: #7a5247;">Enter our special date to unlock ❤️</p>
+                <input type="password" id="passcodeInput" class="passkey-input" placeholder="••••••" maxlength="6">
+                <br>
+                <button class="passkey-btn" onclick="checkPasscode(event)">Unlock</button>
+                <p id="errorMsg" class="error-msg">Incorrect Passcode! Try again ❤️</p>
+            </div>
+        </div>
+
+        <!-- Step 4: Flower Loading Screen -->
+        <div id="loadingStep">
+            <div class="flower-loader">🌸</div>
+            <h2 style="font-family: 'Caveat', cursive; font-size: 2.2rem; color: #8b2626;">Unlocking memories...</h2>
+            <p style="font-size: 0.9rem; color: #a06e62; font-style: italic;">Preparing something special for you ✨</p>
+        </div>
+
+        <!-- Step 5: Final Love Letter Screen -->
+        <div id="finalStep">
+            <h1 class="main-title">I Love You! ❤️</h1>
+            <p class="sub-title">You are my whole world.</p>
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #5a3e36; margin-top: 15px;">
+                Thank you for being in my life and making every single moment beautiful.
+            </p>
+        </div>
     </div>
 
     <script>
-        // --- Updated Ultimate Flower Burst Logic ---
         function triggerUltimateFlowerBurst(e) {
             const flowers = ['🌸', '🌹', '🌺', '🌷', '✨', '💖', '💐', '💞'];
-            const totalCount = 100; // MUCH more flowers (original was 30)
-            const burstRadius = 400; // Increased radius
+            const totalCount = 100;
+            const burstRadius = 400;
 
             for (let i = 0; i < totalCount; i++) {
                 const flower = document.createElement('div');
                 flower.className = 'flower-particle';
                 flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
 
-                // Initial position at the click point
-                const clickX = e.clientX;
-                const clickY = e.clientY;
+                const clickX = e ? e.clientX : window.innerWidth / 2;
+                const clickY = e ? e.clientY : window.innerHeight / 2;
                 flower.style.left = clickX + 'px';
                 flower.style.top = clickY + 'px';
 
-                // Random burst direction and distance
-                const angle = Math.random() * Math.PI * 2; // Full circle
-                // Distribute distance more evenly
+                const angle = Math.random() * Math.PI * 2;
                 const distance = 50 + Math.random() * burstRadius; 
 
                 const tx = Math.cos(angle) * distance + 'px';
                 const ty = Math.sin(angle) * distance + 'px';
                 
-                // Random scale and rotation for end state
                 const finalScale = 0.8 + Math.random() * 1.5;
-                const rot = (Math.random() * 1440) + 'deg'; // More spins
+                const rot = (Math.random() * 1440) + 'deg';
                 
-                // CSS Variables for animation
                 flower.style.setProperty('--tx', tx);
                 flower.style.setProperty('--ty', ty);
                 flower.style.setProperty('--rot', rot);
                 flower.style.setProperty('--final-scale', finalScale);
-                flower.style.setProperty('--rand-size', Math.random()); // For random font sizes
+                flower.style.setProperty('--rand-size', Math.random());
 
-                // Small random delay for staggered effect
                 flower.style.animationDelay = (Math.random() * 0.3) + 's';
 
                 document.body.appendChild(flower);
 
-                // Clean up particle after animation
-                setTimeout(() => flower.remove(), 2500); // Wait for full 2s + 0.3s delay
+                setTimeout(() => flower.remove(), 2500);
             }
 
-            // --- Step Transition (unmodified, slight delay tweak) ---
             var music = document.getElementById('bgMusic');
-            if(music) {
+            if(music && music.paused) {
                 music.currentTime = 0;
                 music.play().catch(function(err) { console.log("Audio error:", err); });
             }
 
-            // Slightly longer delay to let the initial intense burst happen
             setTimeout(() => {
                 document.getElementById('step1').style.display = 'none';
                 document.getElementById('step2').style.display = 'block';
-            }, 800); // 800ms to allow the burst peak
+            }, 800);
         }
 
         function goToStep3() {
-            // Next step placeholder
-            console.log("Proceeding to Step 3");
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'block';
+        }
+
+        function checkPasscode(e) {
+            const input = document.getElementById('passcodeInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (input === "191223") {
+                errorMsg.style.display = "none";
+                document.getElementById('step3').style.display = 'none';
+                document.getElementById('loadingStep').style.display = 'block';
+
+                // Flower loading screen for 3 seconds then go to final step
+                setTimeout(() => {
+                    document.getElementById('loadingStep').style.display = 'none';
+                    document.getElementById('finalStep').style.display = 'block';
+                    triggerUltimateFlowerBurst(e); // Final celebration burst
+                }, 3000);
+            } else {
+                errorMsg.style.display = "block";
+            }
         }
     </script>
 
