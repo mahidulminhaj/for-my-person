@@ -67,16 +67,16 @@
 
         .main-title {
             font-family: 'Caveat', cursive;
-            font-size: 3.2rem;
+            font-size: 3rem;
             color: #8b2626;
             margin-bottom: 0px;
             line-height: 1.1;
         }
         .sub-title {
             font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: #6b4338;
-            margin-bottom: 20px;
+            margin-bottom: 0px;
             font-style: italic;
         }
 
@@ -116,7 +116,7 @@
             color: #b57a70;
             cursor: pointer;
             letter-spacing: 5px;
-            margin-top: 10px;
+            margin-top: 15px;
         }
 
         /* --- Step 3: Passkey Box --- */
@@ -191,22 +191,46 @@
             margin-bottom: 15px;
         }
 
-        /* --- Step 6: 6 Photo Grid --- */
-        .photo-grid {
+        /* --- Step 6: Asymmetric Photo Grid with Middle Text --- */
+        .asymmetric-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 20px;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        .photo-grid img {
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .grid-item img {
             width: 100%;
-            height: 140px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            display: block;
             transition: transform 0.3s ease;
         }
-        .photo-grid img:hover { transform: scale(1.04); }
+        .grid-item img:hover { transform: scale(1.05); }
+
+        /* Custom heights & rotations for mosaic look */
+        .item-1 { height: 130px; transform: rotate(-2deg); }
+        .item-2 { height: 160px; transform: rotate(2deg); }
+        .item-3 { height: 150px; transform: rotate(1deg); }
+        
+        .middle-text-block {
+            grid-column: span 2;
+            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            backdrop-filter: blur(4px);
+            margin: 5px 0;
+        }
+
+        .item-4 { height: 160px; transform: rotate(-1.5deg); }
+        .item-5 { height: 135px; transform: rotate(2.5deg); }
+        .item-6 { height: 145px; grid-column: span 2; }
 
         /* --- Step 7: Final Letter --- */
         .letter-card {
@@ -285,18 +309,38 @@
             <div class="nav-dots" onclick="goToStep6()">Next ✦ ♡ ✦</div>
         </div>
 
-        <!-- Step 6: 6 Photo Grid -->
+        <!-- Step 6: Mosaic Photo Grid with Center Title -->
         <div id="step6">
-            <h1 class="main-title">I Love You! ❤️</h1>
-            <p class="sub-title">You are my whole world.</p>
-            <div class="photo-grid">
-                <img src="pic1.jpg" alt="Memory 1">
-                <img src="pic2.jpg" alt="Memory 2">
-                <img src="pic3.jpg" alt="Memory 3">
-                <img src="pic4.jpg" alt="Memory 4">
-                <img src="pic5.jpg" alt="Memory 5">
-                <img src="pic6.jpg" alt="Memory 6">
+            <div class="asymmetric-grid">
+                <!-- Top Photos -->
+                <div class="grid-item item-1">
+                    <img src="pic1.jpg" alt="Memory 1">
+                </div>
+                <div class="grid-item item-2">
+                    <img src="pic2.jpg" alt="Memory 2">
+                </div>
+
+                <!-- Center Text Block -->
+                <div class="middle-text-block">
+                    <h1 class="main-title">I Love You! ❤️</h1>
+                    <p class="sub-title">You are my whole world.</p>
+                </div>
+
+                <!-- Middle/Bottom Photos (.jpeg Extension Fixed) -->
+                <div class="grid-item item-3">
+                    <img src="pic3.jpg" alt="Memory 3">
+                </div>
+                <div class="grid-item item-4">
+                    <img src="pic4.jpeg" alt="Memory 4">
+                </div>
+                <div class="grid-item item-5">
+                    <img src="pic5.jpeg" alt="Memory 5">
+                </div>
+                <div class="grid-item item-6">
+                    <img src="pic6.jpeg" alt="Memory 6">
+                </div>
             </div>
+
             <div class="nav-dots" onclick="goToStep7()">Read my letter ✦ ♡ ✦</div>
         </div>
 
