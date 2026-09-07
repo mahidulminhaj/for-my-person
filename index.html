@@ -465,15 +465,12 @@ Ebar bolo "tumi ki bhaggoban now?" 😊🫶</p>
             document.getElementById('step3').style.display = 'block';
         }
 
-        /* --- Guaranteed Working Encrypted Check (Passcode: 191223) --- */
+        /* --- Direct Passcode Verification --- */
         function checkPasscode(e) {
-            const input = document.getElementById('passcodeInput').value;
+            const input = document.getElementById('passcodeInput').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
-            // Encrypted key representation for '191223'
-            const secretKey = "MTkxMjIz";
-
-            if (btoa(input) === secretKey) {
+            if (input === "191223") {
                 errorMsg.style.display = "none";
                 document.getElementById('step3').style.display = 'none';
                 document.getElementById('loadingStep').style.display = 'block';
